@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  ClimbAssistWebpConverter:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: webp_converter
+      Handler: webp_converter.convert_to_webp
+      Runtime: python3.7
+      Policies:
+      - AWSLambdaExecute
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - s3:GetObject
+          - s3:PutObject
+          Resource: !Sub arn:aws:s3:::photos-${AWS::AccountId}-${AWS::Region}*

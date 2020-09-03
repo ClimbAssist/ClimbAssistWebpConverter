@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+NAME=""
+
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  case "$key" in
+  --name)
+    shift
+    NAME="$1"
+    ;;
+  *)
+    echo "Unknown option '$key'"
+    exit 1
+    ;;
+  esac
+  shift
+done
+
+if [ -z "$NAME" ]; then
+  echo "Must provide --name option"
+  exit 1
+fi
+
+sam package --template-file template.yml --s3-bucket "$NAME"-dev --output-template-file packaged-template.yml &&
+  sam deploy --template-file packaged-template.yml --s3-bucket "$NAME"-dev --stack-name \
+    climbassistwebconverter-infrastructure-"$NAME"-dev --capabilities CAPABILITY_IAM
+rm packaged-template.yml
