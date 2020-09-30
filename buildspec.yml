@@ -6,9 +6,11 @@ phases:
       python: latest
     commands:
     - pip install --upgrade awscli
+    - pip install -r webp_converter/requirements.txt
+    - pip install -r tests/requirements.txt
   build:
     commands:
-    - mvn war:exploded
+    - python -m pytest
   post_build:
     commands:
     - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template-file template-export.yml
