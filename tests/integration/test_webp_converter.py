@@ -4,7 +4,7 @@ import string
 
 import boto3
 import pytest
-# TODO PERMISSIONS!!!!!!!
+
 from botocore.exceptions import ClientError
 
 s3 = boto3.client("s3")
