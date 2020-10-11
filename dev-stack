@@ -24,5 +24,5 @@ fi
 
 sam package --template-file template.yml --s3-bucket "$NAME"-dev --output-template-file packaged-template.yml &&
   sam deploy --template-file packaged-template.yml --s3-bucket "$NAME"-dev --stack-name \
-    climbassistwebconverter-infrastructure-"$NAME"-dev --capabilities CAPABILITY_IAM
+    ClimbAssistWebpConverter-"$NAME" --parameter-overrides ResourceNameSuffix=-"$NAME" --capabilities CAPABILITY_IAM
 rm packaged-template.yml

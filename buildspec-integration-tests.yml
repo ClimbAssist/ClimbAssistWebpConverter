@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: latest
+    commands:
+    - pip install --upgrade awscli
+    - pip install -r tests/requirements.txt
+  build:
+    commands:
+    - python -m pytest -s tests/integration/* --bucket $PHOTOS_S3_BUCKET --function_name $LAMBDA_FUNCTION_NAME

@@ -26,7 +26,7 @@ def assert_not_called_with(self, *args, **kwargs):
         self.assert_called_with(*args, **kwargs)
     except AssertionError:
         return
-    raise AssertionError('Expected %s to not have been called.' % self._format_mock_call_signature(args, kwargs))
+    raise AssertionError("Expected %s to not have been called." % self._format_mock_call_signature(args, kwargs))
 
 
 Mock.assert_not_called_with = assert_not_called_with
@@ -35,7 +35,7 @@ Mock.assert_not_called_with = assert_not_called_with
 @patch("webp_converter.webp_converter.boto3.client")
 @patch("webp_converter.webp_converter.open", new_callable=mock_open)
 def test_lambda_handler_success(mock_open_, mock_s3):
-    shutil.copyfile("tests/test_data/image.jpg", INPUT_IMAGE_PATH)
+    shutil.copyfile("tests/fixtures/image.jpg", INPUT_IMAGE_PATH)
 
     result = webp_converter.convert_to_webp(EVENT, "")  # TODO do we need to pass context at all?
 
@@ -58,7 +58,7 @@ def test_lambda_handler_success(mock_open_, mock_s3):
 @patch("webp_converter.webp_converter.boto3.client")
 @patch("webp_converter.webp_converter.open", new_callable=mock_open)
 def test_lambda_handler_not_jpg(mock_open_, mock_s3):
-    shutil.copyfile("tests/test_data/not-an-image.txt", INPUT_IMAGE_PATH)
+    shutil.copyfile("tests/fixtures/not-an-image.txt", INPUT_IMAGE_PATH)
 
     result = webp_converter.convert_to_webp(EVENT, "")  # TODO do we need to pass context at all?
 
@@ -109,7 +109,7 @@ def test_lambda_handler_source_download_client_error(mock_open_, mock_s3):
 @patch("webp_converter.webp_converter.boto3.client")
 @patch("webp_converter.webp_converter.open", new_callable=mock_open)
 def test_lambda_handler_source_upload_client_error(mock_open_, mock_s3):
-    shutil.copyfile("tests/test_data/image.jpg", INPUT_IMAGE_PATH)
+    shutil.copyfile("tests/fixtures/image.jpg", INPUT_IMAGE_PATH)
 
     s3_client_error = ClientError({
         "Error": {
