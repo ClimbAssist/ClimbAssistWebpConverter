@@ -42,7 +42,9 @@ It produces the following output:
 ```json
 {
     "statusCode": int,
-    "body": string
+    "body": {
+        "message": string
+    }
 }
 ```
 

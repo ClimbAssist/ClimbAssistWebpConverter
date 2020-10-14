@@ -10,7 +10,7 @@ INPUT_FILE_PATH = "/tmp/input.jpg"
 OUTPUT_FILE_PATH = "/tmp/output.webp"
 
 
-def convert_to_webp(event, context):  # TODO do we need context at all?
+def convert_to_webp(event, context):
     logging.info(f"Received event: {event}")
     source_location = event["sourceLocation"]
     destination_location = event["destinationLocation"]
