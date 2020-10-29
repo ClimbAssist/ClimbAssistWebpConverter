@@ -37,7 +37,7 @@ Mock.assert_not_called_with = assert_not_called_with
 def test_lambda_handler_success(mock_open_, mock_s3):
     shutil.copyfile("tests/fixtures/image.jpg", INPUT_IMAGE_PATH)
 
-    result = webp_converter.convert_to_webp(EVENT)
+    result = webp_converter.convert_to_webp(EVENT, None)
 
     assert result["statusCode"] == 200
     body = json.loads(result["body"])
@@ -60,7 +60,7 @@ def test_lambda_handler_success(mock_open_, mock_s3):
 def test_lambda_handler_not_jpg(mock_open_, mock_s3):
     shutil.copyfile("tests/fixtures/not-an-image.txt", INPUT_IMAGE_PATH)
 
-    result = webp_converter.convert_to_webp(EVENT)
+    result = webp_converter.convert_to_webp(EVENT, None)
 
     assert result["statusCode"] == 400
     body = json.loads(result["body"])
@@ -89,7 +89,7 @@ def test_lambda_handler_source_download_client_error(mock_open_, mock_s3):
     }, "GetObject")
     mock_s3.return_value.download_fileobj.side_effect = s3_client_error
 
-    result = webp_converter.convert_to_webp(EVENT)
+    result = webp_converter.convert_to_webp(EVENT, None)
 
     assert result["statusCode"] == 400
     body = json.loads(result["body"])
@@ -119,7 +119,7 @@ def test_lambda_handler_source_upload_client_error(mock_open_, mock_s3):
     }, "PutObject")
     mock_s3.return_value.upload_fileobj.side_effect = s3_client_error
 
-    result = webp_converter.convert_to_webp(EVENT)
+    result = webp_converter.convert_to_webp(EVENT, None)
 
     assert result["statusCode"] == 400
     body = json.loads(result["body"])
