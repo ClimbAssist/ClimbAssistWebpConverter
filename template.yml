@@ -24,3 +24,4 @@ Resources:
           - s3:PutObject
           Resource: !Sub arn:aws:s3:::photos-${AWS::AccountId}-${AWS::Region}*
       Timeout: 300
+      MemorySize: 1024
